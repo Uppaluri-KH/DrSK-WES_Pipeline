@@ -11,7 +11,8 @@ After the installation is successful with docker and docker-compose, the next st
 Then, create a docker-compose.yml script to build all these dockers into our local machine. 
 Now, once the docker images are created, check whether the dockers are running or not. 
 
+##### Splitting the depth columns from the FORMAT and SAMPLE columns for Down stream analysis ###########################################
 
-**######################## Splitting the depth columns from the FORMAT and SAMPLE columns for Down stream analysis ###########################################
-**
-1. 
+1. The raw vcf file from the wes pipe line had FORMAT and SAMPLE columns for depth ("**GT:GQ:SDP:DP:RD:AD:FREQ:PVAL:RBQ:ABQ:RDF:RDR:ADF:ADR**")information.
+2. Splitted these key value pairs and created new depth columns(**GT,GQ,SDP,DP,RD,AD,FREQ,PVAL,RDF,RDR,ADF,ADR**).
+3. Exported the vcf file along with the depth column as tsv file for Downstrem Analysis.
