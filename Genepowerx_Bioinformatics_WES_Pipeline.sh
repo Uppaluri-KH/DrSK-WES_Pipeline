@@ -218,19 +218,22 @@ echo -e "$(tput setaf 13)Starting k & H pipeline.... $(tput sgr0)";
 	mpileup_indel_et=$(date +%s)
 	head -n 8 $snp_vcf_varscan >> $mpileup_to_snp_log; tail -n 4 $snp_vcf_varscan >> $mpileup_to_snp_log
 	head -n 8 $indel_vcf_varscan >> $mpileup_to_indel_log; tail -n 4 $indel_vcf_varscan >> $mpileup_to_indel_log
-	cat $snp_vcf_varscan | tail -n +9 | head -n -4 > $snp_vcf_varscan_m 
-	cat $indel_vcf_varscan | tail -n +9 | head -n -4 > $indel_vcf_varscan_m  
+	grep -E '^#|^chr' $snp_vcf_varscan > $snp_vcf_varscan_m 
+	grep -E '^#|^chr' $indel_vcf_varscan > $indel_vcf_varscan_m
+	# cat $snp_vcf_varscan | tail -n +9 | head -n -4 > $snp_vcf_varscan_m 
+	# cat $indel_vcf_varscan | tail -n +9 | head -n -4 > $indel_vcf_varscan_m  
 	echo -e "$(tput setaf 6)Filtering snps.... $(tput sgr0)";
 	docker run -it --rm -v $(pwd):/data -w /data varscan:2.4.6 filter $snp_vcf_varscan_m --indel-file $indel_vcf_varscan > $filtered_snp_vcf
 	filter_snp_et=$(date +%s)
 	echo -e "$(tput setaf 6)Filtering indels.... $(tput sgr0)";
 	docker run -it --rm -v $(pwd):/data -w /data varscan:2.4.6 filter $indel_vcf_varscan_m > $filtered_indel_vcf
 	filter_indel_et=$(date +%s)
-	head -n 8 $filtered_snp_vcf >> $snp_filter_log; tail -n 11 $filtered_snp_vcf >> $snp_filter_log
-	head -n 8 $filtered_indel_vcf >> $indel_filter_log; tail -n 11 $filtered_indel_vcf >> $indel_filter_log
-	cat $filtered_snp_vcf | tail -n +9 | head -n -11 > $filtered_snp_vcf_m 
-	cat $filtered_indel_vcf | tail -n +8 | head -n -11 > $filtered_indel_vcf_m  
-
+	grep -E '^#|^chr' $filtered_snp_vcf > $filtered_snp_vcf_m
+	grep -E '^#|^chr' $filtered_indel_vcf > $filtered_indel_vcf_m
+	# head -n 8 $filtered_snp_vcf >> $snp_filter_log; tail -n 11 $filtered_snp_vcf >> $snp_filter_log
+	# head -n 8 $filtered_indel_vcf >> $indel_filter_log; tail -n 11 $filtered_indel_vcf >> $indel_filter_log
+	# cat $filtered_snp_vcf | tail -n +9 | head -n -11 > $filtered_snp_vcf_m 
+	# cat $filtered_indel_vcf | tail -n +8 | head -n -11 > $filtered_indel_vcf_m  
 ################ Step7: SnpSift ##################################################################
 	
 	echo -e "$(tput setaf 6)Annotating with dbsnp for snp and indel files.... $(tput sgr0)";
@@ -274,3 +277,13 @@ echo -e "$(tput setaf 13)Starting k & H pipeline.... $(tput sgr0)";
 ## After generation of the final VCF the info and depth columns splitting.  
 python3 $base_dir/INFO_splitting_VEP.py ${1}
 echo "Info column splitting has been done and saved the output file for the sample - ${1}"
+
+###########################################################################################
+This block of commands will change the ownership of the directories...
+username=$(whoami)
+hostname=$(hostname)
+sudo chown ${username}:${hostname} ./data/
+sudo chown ${username}:${hostname} ./data/*
+sudo chown ${username}:${hostname} ./data/*/*
+sudo chown ${username}:${hostname} ./data/*/*/*
+sudo chown ${username}:${hostname} ./data/*/*/*/*
