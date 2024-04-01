@@ -60,7 +60,6 @@ trimmed_forward="$trimmed_samples/$1_trim_forward.fastq.gz"
 trimmed_reverse="$trimmed_samples/$1_trim_reverse.fastq.gz"
 untrimmed_forward="$trimmed_samples/$1_untrim_forward.fastq.gz"
 untrimmed_reverse="$trimmed_samples/$1_untrim_reverse.fastq.gz"
-crop_value=$2
 human_hg38="$base_dir/human_ref/Human_hg38/Human_hg38"
 sam_file="$bowtie_dir/$1_aligned.sam"
 sorted_bam="$samtools_dir/$1_sorted.bam"
@@ -234,12 +233,11 @@ echo -e "$(tput setaf 13)Starting k & H pipeline.... $(tput sgr0)";
 
 ################ Step7: SnpSift ##################################################################
 	
-	# snpsift for annotating
-		echo -e "$(tput setaf 6)Annotating with dbsnp for snp and indel files.... $(tput sgr0)";
-		docker run -it --rm -v $(pwd):/data/ -w /data/ snpsift:5.1 annotate $dbsnp_file $filtered_snp_vcf_m > $annotated_snp_vcf
-		annotate_snp_et=$(date +%s)
-		docker run -it --rm -v $(pwd):/data/ -w /data/ snpsift:5.1 annotate $dbsnp_file $filtered_indel_vcf_m > $annotated_indel_vcf
-		annotate_indel_et=$(date +%s)
+	echo -e "$(tput setaf 6)Annotating with dbsnp for snp and indel files.... $(tput sgr0)";
+	docker run -it --rm -v $(pwd):/data/ -w /data/ snpsift:5.1 annotate $dbsnp_file $filtered_snp_vcf_m > $annotated_snp_vcf
+	annotate_snp_et=$(date +%s)
+	docker run -it --rm -v $(pwd):/data/ -w /data/ snpsift:5.1 annotate $dbsnp_file $filtered_indel_vcf_m > $annotated_indel_vcf
+	annotate_indel_et=$(date +%s)
 
 ################ Step8: Ensembl-VEP ##################################################################
 
