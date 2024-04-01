@@ -18,6 +18,8 @@ docker build -t bowtie2:2.5.3 ./Docker_files/bowtie2/
 docker build -t samtools:1.19 ./Docker_files/samtools/
 docker build -t varscan:2.4.6 ./Docker_files/varscan/
 docker build -t snpsift:5.1 ./Docker_files/snpsift/
+
+### ENSEMBL-VEP Dockerization. 
 mkdir $HOME/vep_data
 sudo chmod 777 -R $HOME/vep_data
 docker pull ensemblorg/ensembl-vep
