@@ -1,0 +1,47 @@
+Installations: 
+Bioinformatics tools/Softwares can be installed in multiple ways, i.e., 
+A. pre-built binaries B. source code (manual installtions from scratch), C. Dockerization of tools.  D. Conda 
+
+A & B. Manual Installations using source codes or installing binaries. 
+FastQC: https://raw.githubusercontent.com/s-andrews/FastQC/master/INSTALL.txt
+Cutadapt: https://cutadapt.readthedocs.io/en/stable/installation.html
+Trimmomatic: http://www.usadellab.org/cms/?page=trimmomatic
+Bowtie2: https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#obtaining-bowtie-2
+samtools: http://www.htslib.org/download/
+varscan: http://dkoboldt.github.io/varscan/, https://github.com/dkoboldt/varscan
+snpsift: http://pcingola.github.io/SnpEff/snpsift/introduction/
+VEP: https://asia.ensembl.org/info/docs/tools/vep/script/vep_download.html
+
+
+C. Dockerization of tools
+Docker engine can be installed using the following documentation: https://docs.docker.com/engine/install/
+Dockers can be installed in two ways i.e., 
+a. creating dockerfiles and building them manually, 
+b. pulling pre-built docker containers
+
+1. Dockers : Docker is a software platform that allows users to build, test, and deploy applications quickly. 
+Docker containers have everything the software needs to run including libraries, system tools, code, and runtime. 
+Using Docker, any user can utilise the required softwares in their desired environments.
+
+website: https://hub.docker.com/
+This website has the pre-built dockers of multiple tools. Docker containers can be pulled directly from here. 
+Otherwise, the user has to create Dockerfiles for each tool and build them manually. 
+References: 
+https://www.simplilearn.com/tutorials/docker-tutorial/what-is-dockerfile
+https://www.tutorialspoint.com/docker/docker_file.htm
+
+D. Installations using conda 
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+bash miniconda.sh -b -p /opt/conda && \
+    rm miniconda.sh && \
+    /opt/conda/bin/conda clean -tipy && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc
+    
+conda create -n ngs_pipeline python=3.8 -y
+conda activate ngs_pipeline
+conda install -n ngs_pipeline -c conda-forge -c bioconda fastqc trimmomatic cutadapt bowtie2 samtools varscan snpsift ensembl-vep -y
+conda deactivate ngs_pipeline
+
+
