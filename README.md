@@ -9,24 +9,30 @@ For optimal computational performance, it is recommended to use multi threading 
 This repository has the next generation of the Whole Exome Sequencing (WES) analysis from raw data fastq-files to vcf generation , annotation, and filtration for reporting the variants based on condition specific. The contents of this repository are 100% open source. 
 
 **Installation**:
+
 Manual installations using source codes or installing binaries for FastQC, Cutadapt, Trimmmomatic, Bowtie2, Samtools, VarScan, snpsift, VEP. The installation instructions were provided in the installations.txt file.  
 
 **Dependencies**
+
 The automated pipeline consists of multiple open-source tools with their dependencies so docker installation is recommended.
 Python 3 with libraries like numpy and pandas needs to be installed. 
 
 **Dockerfiles creation and Installations:**
+
 We have created the Dockerfiles for each tool with the latest versions and these dockerfiles can be found in the “Dockerfiles.zip”. We recommend using them once you are done with downloading and extraction. Instructions were provided in the “Docker_installations.sh” file.   
 
 **Pipeline Execution:**
+
 bash Genepowerx_Bioinformatics_WES_Pipeline.sh <samples name/bar code> <Number of Threads>
 Example: “bash Genepowerx_Bioinformatics_WES_Pipeline.sh Genepowerx_tutorial 24”
 If file names have Genepowerx_tutorial.R1.fastq.gz & Genepowerx_tutorial.R2.fastq.gz script requires the first part of the file name for creating directories and output file names for each sample.
 
 **Data Availability:**
+
 The data requirements and test data along with detailed installations are available in the githiub repository. 
 
 **Directories creation and prerequisites:** 
+
 After installation of Dockers and successful validation, the pipeline is allowed to run. But we recommend creating a mother/base directory named as "pipeline" in the HOME directory where the system has enough storage > 300Gb for a single WES sample to complete the run.
 Once you are done with creation of pipeline directory, download the "Genepowerx_Bioinformatics_WES_Pipeline.sh" script into it along with “get_trim_value.py” (This python script generates the head and tail cropping parameters for trimmomatic from fastqc result files)
 python script. Next we recommend creating a sub directory in the pipeline folder named as "data". And within the data directory create a sub-directory named "raw_samples". Once we are done with successful creation of these directories, we recommend copying the paired-end raw data fastq files into this directory. Now, setting up pre-requisites for initiating the pipeline like alignment index, reference genome fasta, clinvar, dbsnp files.
@@ -34,13 +40,16 @@ python script. Next we recommend creating a sub directory in the pipeline folder
 These are optional, because we have already downloaded these files and uploaded them to github/dropbox/google_drive. Download them and use them for now.
  
 **Download hg38 fasta:** 
+
 wget -c https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz
 gunzip -k hg38.fa.gz
 
 **Download ClinVar:**
+
 https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/
 
 **Download dbSNP:**
+
 https://ftp.ncbi.nih.gov/snp/latest_release/VCF/
 
 Build index files for the hg38 genome assembly using bowtie2 build
@@ -63,6 +72,7 @@ After downloading these prerequisites, open the terminal from the pipeline direc
 Here. We have added additional information like splitting the VCF file and converting the vcf file format into tabular separated file. The “INFO_splitting_VEP.py” considers the annotated final vcf file and creates an excel file with column wise splitted Quality Check (QC) parameters i.e., read depth, variant allele fraction etc. In addition to that the annotated information also splitted from vcf INFO column i.e., variant associated gene name, variant consequences, clinical condition, Intron/Exon number, population based allele frequencies, etc. The script can be modified for specific field requirements accordingly. 
  
 **Troubleshooting:**
+
 1.  The file permissions need to be changed once the end results are done.
 Ex: sudo chown user:user <directory/file name>. This command will change the ownership of the file which allows accessing the files. Note: We have included this in the main script. 
 
