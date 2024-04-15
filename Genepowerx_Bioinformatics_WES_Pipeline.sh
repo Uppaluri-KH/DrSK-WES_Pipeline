@@ -271,7 +271,7 @@ echo -e "$(tput setaf 13)Starting GenepoweRx WES pipeline.... $(tput sgr0)";
 	echo
 
 ## After generation of the final VCF the info and depth columns splitting.  
-python3 $base_dir/INFO_splitting_VEP.py ${1}
+python3 INFO_splitting_VEP.py ${1}
 echo "Info column splitting has been done and saved the output file for the sample - ${1}"
 
 ###########################################################################################
