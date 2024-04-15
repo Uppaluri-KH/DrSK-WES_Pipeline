@@ -47,6 +47,7 @@ gunzip -k hg38.fa.gz
 **Download ClinVar:**
 
 https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/
+
 Download the respective latest clinvar db file and place it in the folder **vep_data/databases/** 
 Make sure to download the tabix index files for the respective dbfile.
 
