@@ -124,7 +124,7 @@ echo "Creating log directories"
 
 mkdir -p $log_dir
 
-echo -e "$(tput setaf 13)Starting k & H pipeline.... $(tput sgr0)";
+echo -e "$(tput setaf 13)Starting GenepoweRx WES pipeline.... $(tput sgr0)";
 
 ################ Step1: CutAdapt #################################################################
 	
@@ -271,7 +271,7 @@ echo -e "$(tput setaf 13)Starting k & H pipeline.... $(tput sgr0)";
 	echo "Total time till now for partially completed pipeline is $(( $vep_et - $cutadapt_st )) " >> $timings_log
 	echo "The pipeline is complete for sample $1"
 	echo 
-	echo -e "$(tput setaf 13)Thanks for using K & H - Mvedas pipeline. Have a good Day!!!.... $(tput sgr0)";
+	echo -e "$(tput setaf 13)Thanks for using GenepoweRx WES pipeline. Have a good Day!!!.... $(tput sgr0)";
 	echo
 
 ## After generation of the final VCF the info and depth columns splitting.  
