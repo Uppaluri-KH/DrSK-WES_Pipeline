@@ -202,7 +202,7 @@ echo -e "$(tput setaf 13)Starting GenepoweRx WES pipeline.... $(tput sgr0)";
 	bow_et_et=$(date +%s)
 	echo -e "$(tput setaf 6)sorting the sam file.... $(tput sgr0)";
 	docker run -it --rm -v $(pwd):/data/ -w /data/ samtools:1.19 samtools sort --threads $2 $sam_file --output-fmt BAM -o $sorted_bam 
-	sort_bam_et=$(date +%s)
+	sort_sam_et=$(date +%s)
 	echo -e "$(tput setaf 6)Generating mpileup file.... $(tput sgr0)";
 	docker run -it --rm -v $(pwd):/data/ -w /data/ samtools:1.19 samtools mpileup -E -f $human_hg_fasta $sorted_bam -o $mpileup_file 
 	mpileup_et=$(date +%s)
@@ -230,10 +230,7 @@ echo -e "$(tput setaf 13)Starting GenepoweRx WES pipeline.... $(tput sgr0)";
 	filter_indel_et=$(date +%s)
 	grep -E '^#|^chr' $filtered_snp_vcf > $filtered_snp_vcf_m
 	grep -E '^#|^chr' $filtered_indel_vcf > $filtered_indel_vcf_m
-	# head -n 8 $filtered_snp_vcf >> $snp_filter_log; tail -n 11 $filtered_snp_vcf >> $snp_filter_log
-	# head -n 8 $filtered_indel_vcf >> $indel_filter_log; tail -n 11 $filtered_indel_vcf >> $indel_filter_log
-	# cat $filtered_snp_vcf | tail -n +9 | head -n -11 > $filtered_snp_vcf_m 
-	# cat $filtered_indel_vcf | tail -n +8 | head -n -11 > $filtered_indel_vcf_m  
+ 
 ################ Step7: SnpSift ##################################################################
 	
 	echo -e "$(tput setaf 6)Annotating with dbsnp for snp and indel files.... $(tput sgr0)";
@@ -248,7 +245,6 @@ echo -e "$(tput setaf 13)Starting GenepoweRx WES pipeline.... $(tput sgr0)";
 	export SAMPLE="$1"
 	cp $annotated_snp_vcf $vep_input_file
 	echo -e "$(tput setaf 6)vep for annotating with clinvar.... $(tput sgr0)";
-	# docker run -it --rm -v $(pwd):/vep_data1/ ensemblorg/ensembl-vep:release_109.3 vep --format vcf --vcf --cache --offline --force_overwrite --dir_cache /opt/vep/.vep/ --dir_plugins /opt/vep/.vep/Plugins/ --input_file /opt/vep/.vep/input/$SAMPLE.kh_sample.vcf --output_file /opt/vep/.vep/output/$SAMPLE.kh_sample_final.vcf --no_stats --fork $2 --everything --custom /opt/vep/.vep/databases/clinvar_20240317.vcf.gz,ClinVar,vcf,exact,0,CLNSIG,CLNREVSTAT,CLNDN
 	docker run -it -v $HOME/vep_data:/opt/vep/.vep ensemblorg/ensembl-vep vep --format vcf --vcf --cache --offline --force_overwrite --dir_cache /opt/vep/.vep/ --dir_plugins /opt/vep/.vep/Plugins/ --input_file /opt/vep/.vep/input/$SAMPLE.kh_sample.vcf --output_file /opt/vep/.vep/output/$SAMPLE.kh_sample_final.vcf --no_stats --fork $2 --everything --custom /opt/vep/.vep/databases/clinvar_20240317.vcf.gz,ClinVar,vcf,exact,0,CLNSIG,CLNREVSTAT,CLNDN
 	mv $vep_output/$SAMPLE.kh_sample_final.vcf $final_vcf
 	vep_et=$(date +%s)
@@ -260,7 +256,7 @@ echo -e "$(tput setaf 13)Starting GenepoweRx WES pipeline.... $(tput sgr0)";
 	echo "FastQC took :  $(( $fastqc_et - $cutadapt_et )) " >> $timings_log
 	echo "Trimmomatic took : $(( $trimmo_et - $trimmo_st )) " >> $timings_log
 	echo "Bowtie2 took : $(( $bow_et - $trimmo_et )) " >> $timings_log
-	echo "sorting the bam file took : $(( $sort_bam_et - $bow_et )) " >> $timings_log
+	echo "sorting the sam file took : $(( $sort_sam_et - $bow_et )) " >> $timings_log
 	echo "Generating mpileup took : $(( $mpileup_et - $sort_bam_et )) " >> $timings_log
 	echo "mpileup to snp  took : $(( $mpileup_snp_et - $mpileup_et )) " >> $timings_log
 	echo "mpileup to indel  took : $(( $mpileup_indel_et - $mpileup_snp_et )) " >> $timings_log
