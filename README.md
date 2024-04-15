@@ -93,6 +93,6 @@ Here. We have added additional information like splitting the VCF file and conve
 
 **Problem 4:** Running VEP - MSG: ERROR: Multiple assemblies found for cache version 
 
-**Solution: ** If there are multiple cache versions of an assembly, Specify the assembly to be used or move the unused assembly from the directory. (“--assembly [assembly]”)
+**Solution :** If there are multiple cache versions of an assembly, Specify the assembly to be used or move the unused assembly from the directory. (“--assembly [assembly]”)
 
 
