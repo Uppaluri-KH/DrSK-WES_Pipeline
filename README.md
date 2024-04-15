@@ -74,19 +74,24 @@ https://ftp.ncbi.nih.gov/snp/latest_release/VCF/
 Download the respective latest dbsnp db file and place it in the folder **vep_data/databases/** 
 Make sure to download the tabix index files for the respective dbfile.
 
+
+**Building the Bowtie2 Indexes**
 Build index files for the hg38 genome assembly using bowtie2 build
 https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#the-bowtie2-build-indexer
 
+**Command for building Bowtie2 indexes:** bowtie2-build <reference genome fasta file> <bt2_base>
+After building the indexes place them in the **./data/human_ref/Human_hg38/** folder. 
+We have built the indexes with Human_hg38 as base name. If you change the base name. Please do change the bowtie2 running command as per your requirement. 
 
 
 **Raw data for tutorial**
 
-Forward file
+**Forward file**
 https://www.dropbox.com/scl/fi/27azwd52f4n5tf4d3tt73/Genepowerx_tutorial.R1.fastq.gz?rlkey=o3ymovaklcsx0xb08fp50fdjw&dl=0
 
 Click on the above link >>> File >>> Download >>> Or Continue with download only
 
-Reverse file
+**Reverse file**
 https://www.dropbox.com/scl/fi/xj8jvb5lnublgchjc0d6j/Genepowerx_tutorial.R2.fastq.gz?rlkey=o2u0sxh6f0g837fvlsoiqxvw1&dl=0
 
 Click on the above link >>> File >>> Download >>> Or Continue with download only
