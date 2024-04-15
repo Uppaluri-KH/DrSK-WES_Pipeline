@@ -54,6 +54,7 @@ Make sure to download the tabix index files for the respective dbfile.
 **Download dbSNP:**
 
 https://ftp.ncbi.nih.gov/snp/latest_release/VCF/
+
 Download the respective latest dbsnp db file and place it in the folder **vep_data/databases/** 
 Make sure to download the tabix index files for the respective dbfile.
 
