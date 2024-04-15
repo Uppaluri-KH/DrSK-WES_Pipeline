@@ -47,6 +47,7 @@ Build index files for the hg38 genome assembly using bowtie2 build
 https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#the-bowtie2-build-indexer
 
 **Raw data for tutorial**
+
 Forward file
 https://www.dropbox.com/scl/fi/27azwd52f4n5tf4d3tt73/Genepowerx_tutorial.R1.fastq.gz?rlkey=o3ymovaklcsx0xb08fp50fdjw&dl=0
 
