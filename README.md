@@ -79,7 +79,7 @@ Make sure to download the tabix index files for the respective dbfile.
 Build index files for the hg38 genome assembly using bowtie2 build
 https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#the-bowtie2-build-indexer
 
-**Command for building Bowtie2 indexes:** bowtie2-build <reference genome fasta file> <bt2_base>
+**Command for building Bowtie2 indexes:** bowtie2-build <reference_genome_fasta_file> <bt2_base>
 After building the indexes place them in the **./data/human_ref/Human_hg38/** folder. 
 We have built the indexes with Human_hg38 as base name. If you change the base name. Please do change the bowtie2 running command as per your requirement. 
 
