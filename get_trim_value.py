@@ -9,7 +9,7 @@ def test():
 
 i1 = sys.argv[1]
 i2 = sys.argv[2]
-def get_trim_values(input1="/home/deepak/raw_read/KHHSPTGPONC8/KHHSPTGPONC8_S11_R1_AR_fastqc/fastqc_data.txt", input2="/home/deepak/raw_read/KHHSPTGPONC8/KHHSPTGPONC8_S11_R2_AR_fastqc/fastqc_data.txt"  ):
+def get_trim_values(input1="", input2=""  ):
     input1 = open(input1, "r")
     input2 = open(input2, "r")
 
