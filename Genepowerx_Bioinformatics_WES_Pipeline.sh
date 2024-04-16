@@ -216,12 +216,8 @@ echo -e "$(tput setaf 13)Starting GenepoweRx WES pipeline.... $(tput sgr0)";
 	echo -e "$(tput setaf 6)mpileup to indel.... $(tput sgr0)";
 	docker run -it --rm -v $(pwd):/data -w /data varscan:2.4.6 mpileup2indel $mpileup_file --output-vcf 1 > $indel_vcf_varscan
 	mpileup_indel_et=$(date +%s)
-	head -n 8 $snp_vcf_varscan >> $mpileup_to_snp_log; tail -n 4 $snp_vcf_varscan >> $mpileup_to_snp_log
-	head -n 8 $indel_vcf_varscan >> $mpileup_to_indel_log; tail -n 4 $indel_vcf_varscan >> $mpileup_to_indel_log
 	grep -E '^#|^chr' $snp_vcf_varscan > $snp_vcf_varscan_m 
 	grep -E '^#|^chr' $indel_vcf_varscan > $indel_vcf_varscan_m
-	# cat $snp_vcf_varscan | tail -n +9 | head -n -4 > $snp_vcf_varscan_m 
-	# cat $indel_vcf_varscan | tail -n +9 | head -n -4 > $indel_vcf_varscan_m  
 	echo -e "$(tput setaf 6)Filtering snps.... $(tput sgr0)";
 	docker run -it --rm -v $(pwd):/data -w /data varscan:2.4.6 filter $snp_vcf_varscan_m --indel-file $indel_vcf_varscan > $filtered_snp_vcf
 	filter_snp_et=$(date +%s)
@@ -275,7 +271,8 @@ python3 INFO_splitting_VEP.py ${1}
 echo "Info column splitting has been done and saved the output file for the sample - ${1}"
 
 ###########################################################################################
-This block of commands will change the ownership of the directories...
+### This block of commands will change the ownership of the directories...
+### Make sure you pass the system password for modifying the permissions in the below commands. 
 username=$(whoami)
 hostname=$(hostname)
 echo "<Enter_system_password>" | sudo -S chown ${username}:${hostname} ./data/
