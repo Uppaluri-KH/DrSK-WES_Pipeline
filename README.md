@@ -125,7 +125,8 @@ Refer this article : [https://stackoverflow.com/questions/25311613/whats-the-dif
 **Problem 4:** Running VEP - MSG: ERROR: Multiple assemblies found for cache version, MSG: ERROR: No cache found for homo_sapiens, version XXX  
 
 **Solution :** If there are multiple cache versions of an assembly, Specify the assembly to be used or move the unused assembly from the directory. (“--assembly [assembly]”). If you're encountering errors like no cache, download it and provide the cache path to the VEP command directly using -c option followed by the path of the cache version. [https://www.biostars.org/p/487184/  ](url). 
-VEP Documentation: [https://asia.ensembl.org/info/docs/tools/vep/script/vep_tutorial.html](url)
+
+**VEP Documentation:** [https://asia.ensembl.org/info/docs/tools/vep/script/vep_tutorial.html](url)
 
 
 
