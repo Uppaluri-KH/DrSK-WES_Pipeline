@@ -107,18 +107,25 @@ Here. We have added additional information like splitting the VCF file and conve
 
 **Problem 1:** After execution of the pipeline, if the file permissions are not enough for utilising the resulted files. The problem arises like there is no such file or directory.  
 
-**Solution:** The file permissions need to be changed once the end results are done. Ex: sudo chown user:user <directory/file name>. This command will change the ownership of the file which allows accessing the files. Note: We have included this in the main script.
+**Solution:** The file permissions need to be changed once the end results are done. Ex: sudo chown username:hostname <directory/file name>. This command will change the ownership of the file which allows accessing the files. Note: We have included this in the main script. 
+username=$(whoami)
+hostname=$(hostname)
+These commands will let you know the details of the username and hostname. 
+Refer this article : [https://medium.com/@nielssj/docker-volumes-and-file-system-permissions-772c1aee23ca](url) 
 
 **Problem 2:** Mounting the volumes to the docker containers in the pipeline is a validation check. Usually, most of the errors thrown out are “No such file or directory”. 
 
-**Solution:** Mount the directory using -v option followed by the path to the directory on the host machine and the path where you want to mount it in the container. Here's the basic syntax: docker run -v /path/on/host:/path/in/container <image_name> Replace /path/on/host with the directory path on the host machine that you want to mount, /path/in/container with the directory path where you want to mount it inside the container, image_name with the name of the Docker image you want to run, and command with the command you want to execute inside the container.
+**Solution:** Mount the directory using -v option followed by the path to the directory on the host machine and the path where you want to mount it in the container. Here's the basic syntax: docker run -v /path/on/host:/path/in/container <image_name> Replace /path/on/host with the directory path on the host machine that you want to mount, /path/in/container with the directory path where you want to mount it inside the container, image_name with the name of the Docker image you want to run, and command with the command you want to execute inside the container. 
+Refer this article : [https://stackoverflow.com/questions/25311613/whats-the-difference-between-docker-run-v-volume-and-dockerfile-volume](url)
 
 **Problem 3:** Sometimes the log files can be created inside the output files which leads to errors in generating the final output. 
 
-**Solution:** In such cases the script needs to be modified accordingly. Ex: VarScan mpileup output file. We have modified the file accordingly using shell commands. Please refer to the pipeline execution script for more details.
+**Solution:** In such cases the script needs to be modified accordingly. Ex: VarScan mpileup output file. We have modified the file accordingly using shell commands. Please refer to the pipeline execution script for more details. 
 
-**Problem 4:** Running VEP - MSG: ERROR: Multiple assemblies found for cache version 
+**Problem 4:** Running VEP - MSG: ERROR: Multiple assemblies found for cache version, MSG: ERROR: No cache found for homo_sapiens, version XXX  
 
-**Solution :** If there are multiple cache versions of an assembly, Specify the assembly to be used or move the unused assembly from the directory. (“--assembly [assembly]”)
+**Solution :** If there are multiple cache versions of an assembly, Specify the assembly to be used or move the unused assembly from the directory. (“--assembly [assembly]”). If you're encountering errors like no cache, download it and provide the cache path to the VEP command directly using -c option followed by the path of the cache version. [https://www.biostars.org/p/487184/  ](url). 
+VEP Documentation: [https://asia.ensembl.org/info/docs/tools/vep/script/vep_tutorial.html](url)
+
 
 
