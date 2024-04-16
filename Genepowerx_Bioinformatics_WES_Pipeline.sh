@@ -278,8 +278,8 @@ echo "Info column splitting has been done and saved the output file for the samp
 This block of commands will change the ownership of the directories...
 username=$(whoami)
 hostname=$(hostname)
-sudo chown ${username}:${hostname} ./data/
-sudo chown ${username}:${hostname} ./data/*
-sudo chown ${username}:${hostname} ./data/*/*
-sudo chown ${username}:${hostname} ./data/*/*/*
-sudo chown ${username}:${hostname} ./data/*/*/*/*
+echo "<Enter_system_password>" | sudo -S chown ${username}:${hostname} ./data/
+echo "<Enter_system_password>" | sudo -S chown ${username}:${hostname} ./data/*
+echo "<Enter_system_password>" | sudo -S chown ${username}:${hostname} ./data/*/*
+echo "<Enter_system_password>" | sudo -S sudo chown ${username}:${hostname} ./data/*/*/*
+echo "<Enter_system_password>" | sudo -S sudo chown ${username}:${hostname} ./data/*/*/*/*
